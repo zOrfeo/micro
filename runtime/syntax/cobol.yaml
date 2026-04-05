@@ -23,23 +23,33 @@ rules:
     # Constants
     - constant: '\\b(TRUE|FALSE|ZERO|ZEROS|SPACE|SPACES|HIGH-VALUE|LOW-VALUE)\\b'
 
-    # Operators
-    #- operator: '[=<>+\\-/*]'
-
-    # Identifiers
-    #
     # Identification Division
-    - preproc: '^.{7}[ ]{0,3}(IDENTIFICATION DIVISION|IDENTIFICATION|DIVISION)'
+    - type: '^.{7}[ ]{0,3}(IDENTIFICATION|ID)[ ]+DIVISION([^A-Za-z0-9-])'
+    - type: '^.{7}[ ]{0,3}PROGRAM-ID([^A-Za-z0-9-])'
+    - type: "(^|[^A-Za-z0-9-])((?:IS[ ]+)?(?:RECURSIVE|COMMON(?:[ ]+INITIAL)?|INITIAL(?:[ ]+COMMON)?)(?:[ ]+PROGRAM)?)([^A-Za-z0-9-]|$)"
+
+    - type: '^.{7}[ ]{0,3}(PROGRAM-ID|CLASS-ID|FACTORY|OBJECT|METHOD-ID)[. ]{1}'
+    - type: '^.{7}[ ]{0,3}(AUTHOR|INSTALLATION|DATE-WRITTEN|DATE-COMPILED|SECURITY)[. ]{1}'
+    
+    # Environment Division
+    - type: '^.{7}[ ]{0,3}ENVIRONMENT[ ]+DIVISION[. $]{1}'
+
+    # Data Division
+    - type: '^.{7}[ ]{0,3}DATA[ ]+DIVISION[. $]{1}'
+
+    # Procedure Division
+    - type: '^.{7}[ ]{0,3}PROCEDURE[ ]+DIVISION([^A-Za-z0-9-])'
+    - type: '([^A-Za-z0-9-])(SECTION)([^A-Za-z0-9-])'
+
+    # Full Stops / Periods
+    - operator: '[.]{1}'
+    
     # Strings (double quotes)
-    - constant.string:
-        start: '"'
-        end: '"'
+    - constant.string: '".*"'
 
     # Strings (single quotes)
-    - constant.string:
-        start: "'"
-        end: "'"
-        
+    - constant.string: "'.*'"
+    
     # Comments
     - comment: '^.{6}\*.*$'
 
