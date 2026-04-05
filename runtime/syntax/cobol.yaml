@@ -1,0 +1,47 @@
+filetype: cobol
+
+detect:
+    filename: "\\.(cob|cbl|cobol)$"
+
+rules:
+    # Default
+    - identifier: '\\b[A-Z][A-Z0-9-]*\\b'
+
+    # Numbers
+    - constant.number: '\\b[0-9]+\\b'
+
+    # Keywords (verbs)
+    - keyword: '\\b(ACCEPT|ADD|CALL|CANCEL|CLOSE|COMPUTE|CONTINUE|DELETE|DISPLAY|DIVIDE|ELSE|END|END-IF|EVALUATE|EXIT|GOBACK|IF|INITIALIZE|INSPECT|MERGE|MOVE|MULTIPLY|OPEN|PERFORM|READ|RETURN|REWRITE|SEARCH|SET|SORT|START|STOP|STRING|SUBTRACT|UNSTRING|WRITE)\\b'
+
+    # Divisions & sections
+
+    #|ENVIRONMENT|DATA|PROCEDURE|DIVISION|SECTION|WORKING-STORAGE|FILE|LINKAGE)'
+
+    # Data types
+    - type: '\\b(PIC|PICTURE|VALUE|OCCURS|REDEFINES|COMP|COMP-3)\\b'
+
+    # Constants
+    - constant: '\\b(TRUE|FALSE|ZERO|ZEROS|SPACE|SPACES|HIGH-VALUE|LOW-VALUE)\\b'
+
+    # Operators
+    #- operator: '[=<>+\\-/*]'
+
+    # Identifiers
+    #
+    # Identification Division
+    - preproc: '^.{7}[ ]{0,3}(IDENTIFICATION DIVISION|IDENTIFICATION|DIVISION)'
+    # Strings (double quotes)
+    - constant.string:
+        start: '"'
+        end: '"'
+
+    # Strings (single quotes)
+    - constant.string:
+        start: "'"
+        end: "'"
+        
+    # Comments
+    - comment: '^.{6}\*.*$'
+
+    # Masking Area
+    - preproc: '^.{6}'
