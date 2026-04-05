@@ -7,42 +7,29 @@ rules:
     # Default
     - identifier: '\\b[A-Z][A-Z0-9-]*\\b'
 
-    # Numbers
-    - constant.number: '\\b[0-9]+\\b'
-
-    # Keywords (verbs)
-    - keyword: '\\b(ACCEPT|ADD|CALL|CANCEL|CLOSE|COMPUTE|CONTINUE|DELETE|DISPLAY|DIVIDE|ELSE|END|END-IF|EVALUATE|EXIT|GOBACK|IF|INITIALIZE|INSPECT|MERGE|MOVE|MULTIPLY|OPEN|PERFORM|READ|RETURN|REWRITE|SEARCH|SET|SORT|START|STOP|STRING|SUBTRACT|UNSTRING|WRITE)\\b'
-
-    # Divisions & sections
-
-    #|ENVIRONMENT|DATA|PROCEDURE|DIVISION|SECTION|WORKING-STORAGE|FILE|LINKAGE)'
-
-    # Data types
-    - type: '\\b(PIC|PICTURE|VALUE|OCCURS|REDEFINES|COMP|COMP-3)\\b'
-
-    # Constants
-    - constant: '\\b(TRUE|FALSE|ZERO|ZEROS|SPACE|SPACES|HIGH-VALUE|LOW-VALUE)\\b'
-
     # Identification Division
-    - type: '^.{7}[ ]{0,3}(IDENTIFICATION|ID)[ ]+DIVISION([^A-Za-z0-9-])'
-    - type: '^.{7}[ ]{0,3}PROGRAM-ID([^A-Za-z0-9-])'
+    - type: '^.{7}[ ]{0,3}(IDENTIFICATION|ID)[ ]+DIVISION($|[^A-Za-z0-9-])'
+    - type: '^.{7}[ ]{0,3}(PROGRAM-ID|CLASS-ID|FACTORY|OBJECT|METHOD-ID)($|[^A-Za-z0-9-])'
     - type: "(^|[^A-Za-z0-9-])((?:IS[ ]+)?(?:RECURSIVE|COMMON(?:[ ]+INITIAL)?|INITIAL(?:[ ]+COMMON)?)(?:[ ]+PROGRAM)?)([^A-Za-z0-9-]|$)"
-
-    - type: '^.{7}[ ]{0,3}(PROGRAM-ID|CLASS-ID|FACTORY|OBJECT|METHOD-ID)[. ]{1}'
-    - type: '^.{7}[ ]{0,3}(AUTHOR|INSTALLATION|DATE-WRITTEN|DATE-COMPILED|SECURITY)[. ]{1}'
+    - type: '^.{7}[ ]{0,3}(AUTHOR|INSTALLATION|DATE-WRITTEN|DATE-COMPILED|SECURITY)($|[^A-Za-z0-9-])'
     
     # Environment Division
-    - type: '^.{7}[ ]{0,3}ENVIRONMENT[ ]+DIVISION[. $]{1}'
+    - type: '^.{7}[ ]{0,3}ENVIRONMENT[ ]+DIVISION($|[^A-Za-z0-9-])'
 
     # Data Division
-    - type: '^.{7}[ ]{0,3}DATA[ ]+DIVISION[. $]{1}'
+    - type: '^.{7}[ ]{0,3}DATA[ ]+DIVISION($|[^A-Za-z0-9-])'
 
     # Procedure Division
-    - type: '^.{7}[ ]{0,3}PROCEDURE[ ]+DIVISION([^A-Za-z0-9-])'
-    - type: '([^A-Za-z0-9-])(SECTION)([^A-Za-z0-9-])'
+    - type: '^.{7}[ ]{0,3}PROCEDURE[ ]+DIVISION[ ]*[.]+[ ]*$'
+    - type: '([^A-Za-z0-9-])SECTION($|[^A-Za-z0-9-])'
 
     # Full Stops / Periods
     - operator: '[.]{1}'
+
+    # Exec
+    - preproc:
+        start: "([^A-Za-z0-9-])EXEC"
+        end: "END-EXEC"
     
     # Strings (double quotes)
     - constant.string: '".*"'
@@ -53,5 +40,5 @@ rules:
     # Comments
     - comment: '^.{6}\*.*$'
 
-    # Masking Area
-    - preproc: '^.{6}'
+    # Sequence Number Area
+    - comment.todo: '^.{6}'
