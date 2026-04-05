@@ -15,7 +15,29 @@ rules:
     
     # Environment Division
     - type: '^.{7}[ ]{0,3}ENVIRONMENT[ ]+DIVISION($|[^A-Za-z0-9-])'
+    - type: '^.{7}[ ]{0,3}CONFIGURATION[ ]+SECTION($|[^A-Za-z0-9-])'
+    - type: '^.{7}[ ]{0,3}(SOURCE-COMPUTER|OBJECT-COMPUTER|SPECIAL-NAMES)($|[^A-Za-z0-9-])'
+    
+    - type: '([^A-Za-z0-9-](IS)[^A-Za-z0-9-])'
+    - type: '([^A-Za-z0-9-](ON)([ ]+STATUS)?([ ]+IS)?[^A-Za-z0-9-])'
+    - type: '([^A-Za-z0-9-](OFF)([ ]+STATUS)?([ ]+IS)?[^A-Za-z0-9-])'
+    
+    - type: '([^A-Za-z0-9-](ALPHABET)[^A-Za-z0-9-])'
+    - type: '([^A-Za-z0-9-](IS)?([ ]+(STANDARD-1|STANDARD-2|NATIVE|EBCDIC))?([ ]+SYMBOLIC)?([ ]+CHARACTERS)?[^A-Za-z0-9-])'
+    - type: '([^A-Za-z0-9-](THRU|THROUGH|ALSO)[^A-Za-z0-9-])'
+    - type: '([^A-Za-z0-9-](ARE|IN|IS)[^A-Za-z0-9-])'
 
+    - type: '([^A-Za-z0-9-](CLASS|IS|THROUGH|THRU)[^A-Za-z0-9-])'
+    - type: '([^A-Za-z0-9-](CURRENCY)([ ]+SIGN)?([ ]+IS)?[^A-Za-z0-9-])'
+    - type: '([^A-Za-z0-9-](WITH)?([ ]+PICTURE[ ]+SYMBOL)?[^A-Za-z0-9-])'
+
+    - type: '([^A-Za-z0-9-](DECIMAL-POINT)([ ]+IS)?([ ]+COMMA)($|[^A-Za-z0-9-]))'
+    - type: '([^A-Za-z0-9-](XML-SCHEMA)[^A-Za-z0-9-])'
+
+    - type: '^.{7}[ ]{0,3}(REPOSITORY)([^A-Za-z0-9-])'
+    - type: '([^A-Za-z0-9-](CLASS)|((FUNCTION[ ]+ALL[ ]+INTRINSIC)))($|[^A-Za-z0-9-])'
+    - type: '([^A-Za-z0-9-](FUNCTION|INTRINSIC)($|[^A-Za-z0-9-]))'
+    
     # Data Division
     - type: '^.{7}[ ]{0,3}DATA[ ]+DIVISION($|[^A-Za-z0-9-])'
 
